@@ -1,0 +1,55 @@
+---
+title: 'Task 3: Santa Barbara urchins'
+author: "Anna Zauner"
+date: "10/23/2021"
+output: html_document
+---
+
+# Overview
+
+This task utilizes data from 5 sites along the Santa Barbara coast to ....
+
+**Data citation**: Reed, D. 2020. SBC LTER: Reef: Long-term experiment: Kelp removal: Urchin size frequency distribution ver 20. Environmental Data Initiative. https://doi.org/10.6073/pasta/5a1e9ef03aa47bd2225c0bb98a02a63b. 
+
+
+# Set up
+
+```{r setup, include=TRUE, warning= FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+# Attach packages
+library(tidyverse)
+library(dplyr)
+library(janitor)
+library(here)
+
+
+```
+
+# Read in data
+
+Read in with `read_csv` and cleaned names with `clean_names()`
+```{r}
+urchins_data <- read_csv(here("data", "urchins.csv"))
+
+clean_names(urchins_data)
+
+```
+
+## Section 1
+
+Size comparisons, purple and red urchins. 
+
+### Visualize the data
+
+Created a faceted histogram to compare the distribution of sizes between purple and red urchins. 
+
+```{r}
+ggplot(data = urchins_data, aes(x= SIZE))+
+  geom_histogram(color= "black", fill= "white")+
+  facet_grid(COMMON_NAME ~ .)+
+  labs(x = "Size (cm)",
+       y = "Count",
+       title = "Distibution of sizes between purple and red urchins")
+```
+
