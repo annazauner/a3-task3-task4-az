@@ -22,7 +22,7 @@ library(tidyverse)
 library(dplyr)
 library(janitor)
 library(here)
-
+library(kableExtra)
 
 ```
 
@@ -30,9 +30,9 @@ library(here)
 
 Read in with `read_csv` and cleaned names with `clean_names()`
 ```{r}
-urchins_data <- read_csv(here("data", "urchins.csv"))
-
-clean_names(urchins_data)
+urchins_data <- read_csv(here("data", "urchins.csv")) %>% 
+clean_names() %>% 
+rename(size_cm = size)
 
 ```
 
@@ -45,11 +45,33 @@ Size comparisons, purple and red urchins.
 Created a faceted histogram to compare the distribution of sizes between purple and red urchins. 
 
 ```{r}
-ggplot(data = urchins_data, aes(x= SIZE))+
-  geom_histogram(color= "black", fill= "white")+
-  facet_grid(COMMON_NAME ~ .)+
+ggplot(data = urchins_data, aes(x= size_cm))+
+  geom_histogram(color= "black", fill= "white", bin= 10)+
+  facet_grid(common_name ~ .)+
   labs(x = "Size (cm)",
        y = "Count",
        title = "Distibution of sizes between purple and red urchins")
 ```
+Figure 1: **Distribution of sizes (cm) of purple and red urchins** Comparing the distribution of sizes in centimeters between the purple and red urchins off the coast of Santa Barbara. 
 
+### Descriptive statistics
+
+Created a table to summarize statistic for purple and red urchins by finding mean, median, standard deviation and sample size. 
+
+```{r}
+urchins_summary <- urchins_data %>% 
+  group_by(common_name) %>% 
+  summarize(mean = mean(size_cm),
+            median = median(size_cm),
+            sd = sd(size_cm)) %>% 
+  kable(col.names = c("Urchin name",
+                      "Mean (cm)",
+                      "Median (cm)",
+                      "Standard Deviation"),
+        digits = 1)
+
+urchins_summary
+```
+
+
+Takeaways: The purple urchin population has a lower central tendency (4.5cm mean, 4.5cm median) than the red urchin population (6.8cm mean, 7.0cm median). The purple urchins are more concentrated around the central tendency, with a smaller spread and lower standard deviation (1.2) while red urchins are more spread with a higher standard deviation (1.9).
