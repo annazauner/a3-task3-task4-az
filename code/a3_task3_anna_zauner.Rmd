@@ -5,14 +5,14 @@ date: "10/23/2021"
 output: html_document
 ---
 
-# Overview
+## Overview
 
 This task utilizes data from 5 sites along the Santa Barbara coast to ....
 
 **Data citation**: Reed, D. 2020. SBC LTER: Reef: Long-term experiment: Kelp removal: Urchin size frequency distribution ver 20. Environmental Data Initiative. https://doi.org/10.6073/pasta/5a1e9ef03aa47bd2225c0bb98a02a63b. 
 
 
-# Set up
+## Set up
 
 ```{r setup, include=TRUE, warning= FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
@@ -23,10 +23,11 @@ library(dplyr)
 library(janitor)
 library(here)
 library(kableExtra)
+library(lubridate)
 
 ```
 
-# Read in data
+## Read in data
 
 Read in with `read_csv` and cleaned names with `clean_names()`
 ```{r}
@@ -36,7 +37,7 @@ rename(size_cm = size)
 
 ```
 
-## Section 1
+# Section 1
 
 Size comparisons, purple and red urchins. 
 
@@ -54,7 +55,7 @@ ggplot(data = urchins_data, aes(x= size_cm))+
 ```
 Figure 1: **Distribution of sizes (cm) of purple and red urchins** Comparing the distribution of sizes in centimeters between the purple and red urchins off the coast of Santa Barbara. 
 
-### Descriptive statistics
+## Descriptive statistics
 
 Created a table to summarize statistic for purple and red urchins by finding mean, median, standard deviation and sample size. 
 
@@ -74,4 +75,29 @@ urchins_summary
 ```
 
 
-Takeaways: The purple urchin population has a lower central tendency (4.5cm mean, 4.5cm median) than the red urchin population (6.8cm mean, 7.0cm median). The purple urchins are more concentrated around the central tendency, with a smaller spread and lower standard deviation (1.2) while red urchins are more spread with a higher standard deviation (1.9).
+
+
+**Takeaways:** The purple urchin population has a lower central tendency (4.5cm mean, 4.5cm median) than the red urchin population (6.8cm mean, 7.0cm median). The purple urchins are more concentrated around the central tendency, with a smaller spread and lower standard deviation (1.2) while red urchins are more spread with a higher standard deviation (1.9).
+
+
+# Section 2
+
+## Explore the purple urchin data
+
+Compared purple urchin counts by site and year. Done by `filter()` only purple urchins, changing date class to "Date",and creating new columns. 
+
+```{r}
+purple_urchins <- urchins_data %>% 
+  filter(common_name == "Purple Urchin") %>% 
+  mutate(date_new = ymd(date)) %>% 
+  mutate(year_new = year(date_new)) %>% 
+  mutate(site_full = case_when(
+    site == "NAPL" ~ "Naples Reef",
+    site == "AQUE" ~ "Arroyo Quemado",
+    site == "CARP" ~ "Carpinteria Reef",
+    site == "MOHK" ~ "Mohawk Reef",
+    site == "IVEE" ~ "Isla Vista Reef"
+  ))
+
+```
+

@@ -215,24 +215,28 @@ rename(size_cm = size)</code></pre>
   group_by(common_name) %&gt;% 
   summarize(mean = mean(size_cm),
             median = median(size_cm),
-            standard_deviation = sd(size_cm)) %&gt;% 
-  kable()
+            sd = sd(size_cm)) %&gt;% 
+  kable(col.names = c(&quot;Urchin name&quot;,
+                      &quot;Mean (cm)&quot;,
+                      &quot;Median (cm)&quot;,
+                      &quot;Standard Deviation&quot;),
+        digits = 1)
 
 urchins_summary</code></pre>
 <table>
 <thead>
 <tr>
 <th style="text-align:left;">
-common_name
+Urchin name
 </th>
 <th style="text-align:right;">
-mean
+Mean (cm)
 </th>
 <th style="text-align:right;">
-median
+Median (cm)
 </th>
 <th style="text-align:right;">
-standard_deviation
+Standard Deviation
 </th>
 </tr>
 </thead>
@@ -242,13 +246,13 @@ standard_deviation
 Purple Urchin
 </td>
 <td style="text-align:right;">
-4.469797
+4.5
 </td>
 <td style="text-align:right;">
 4.5
 </td>
 <td style="text-align:right;">
-1.175264
+1.2
 </td>
 </tr>
 <tr>
@@ -256,17 +260,18 @@ Purple Urchin
 Red Urchin
 </td>
 <td style="text-align:right;">
-6.776489
+6.8
 </td>
 <td style="text-align:right;">
 7.0
 </td>
 <td style="text-align:right;">
-1.891343
+1.9
 </td>
 </tr>
 </tbody>
 </table>
+<p>Takeaways: The purple urchin population has a lower central tendency (4.5cm mean, 4.5cm median) than the red urchin population (6.8cm mean, 7.0cm median). The purple urchins are more concentrated around the central tendency, with a smaller spread and lower standard deviation (1.2) while red urchins are more spread with a higher standard deviation (1.9).</p>
 </div>
 </div>
 </div>
