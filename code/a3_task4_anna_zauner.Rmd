@@ -1,0 +1,83 @@
+---
+title: 'Task 4: Naples Reef (January 2010) purple urchins'
+author: "Anna Zauner"
+date: "10/24/2021"
+output: html_document
+---
+
+# Overview 
+
+
+```{r setup, include=TRUE, warning= FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+# Attach packages
+library(tidyverse)
+library(dplyr)
+library(janitor)
+library(here)
+library(kableExtra)
+library(lubridate)
+
+```
+
+# Read in the data
+
+```{r}
+urchins_data <- read_csv(here("data", "urchins.csv")) %>% 
+  clean_names()
+  
+```
+# Wrangle the data
+
+Converted date to class "Date" with `lubridate()`, created new columns with dates formated and just years. Then filtered to only include observations at Naples Reef for purple urchins in 2010,
+
+```{r}
+naples_reef_purple_2010 <- urchins_data %>% 
+  mutate(date = mdy(date)) %>% 
+  mutate(year = year(date)) %>% 
+  filter(site == "NAPL", 
+         year == 2010, 
+         common_name == "Purple Urchin") 
+  
+```
+
+# Exploratory data visualization
+
+```{r}
+ggplot(data = naples_reef_purple_2010, aes(x = size))+
+  geom_histogram(color = "black", fill = "white")+
+  facet_grid(treatment ~ .)+
+  labs(x = "Size in diameter (cm)",
+       y = "Count",
+       title = "Distribution of purple urchins at Naples in 2010 by treatment (ZAUNER)")
+
+```
+### ADD QQ PLOT
+
+### ADD TAKEAWAYS
+
+# Summary staistics
+
+Created a table with statistics for purple urchins at Naples in 2010 based on treatment. (mean, median standard deviation, and sample size)
+
+```{r}
+
+naples_reef_purple_2010_table <- naples_reef_purple_2010 %>% 
+  group_by(treatment) %>% 
+  summarize(mean = mean(size),
+            median = median(size),
+            s_d = sd(size),
+            sample_size = n()) %>% 
+  kable(caption = "Table 1: Summary statistics for purple urchin sizes (cm) at Naples in 2010",
+        col.names = c("Treatment",
+                      "Mean (cm)",
+                      "Median (cm)",
+                      "Standard deviation",
+                      "Sample size"),
+        digits = 1) %>% 
+  kable_minimal()
+
+naples_reef_purple_2010_table
+```
+
