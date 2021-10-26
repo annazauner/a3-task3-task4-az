@@ -23,6 +23,8 @@ library(lubridate)
 
 # Read in the data
 
+Read in data using `read_csv` and cleaned data with `clean_names()`
+
 ```{r}
 urchins_data <- read_csv(here("data", "urchins.csv")) %>% 
   clean_names()
@@ -44,16 +46,24 @@ naples_reef_purple_2010 <- urchins_data %>%
 
 # Exploratory data visualization
 
+## Histogram
+
 ```{r}
 ggplot(data = naples_reef_purple_2010, aes(x = size))+
-  geom_histogram(color = "black", fill = "white")+
-  facet_grid(treatment ~ .)+
+  geom_histogram(color = "black", fill = "white", bins = 10)+
+  facet_wrap(~ treatment)+
   labs(x = "Size in diameter (cm)",
        y = "Count",
        title = "Distribution of purple urchins at Naples in 2010 by treatment (ZAUNER)")
 
 ```
-### ADD QQ PLOT
+
+
+## QQ plot
+
+```{r}
+qqnorm(naples_reef_purple_2010$size)
+```
 
 ### ADD TAKEAWAYS
 
