@@ -47,8 +47,8 @@ Created a faceted histogram to compare the distribution of sizes between purple 
 
 ```{r}
 ggplot(data = urchins_data, aes(x= size_cm))+
-  geom_histogram(color= "black", fill= "white", bin= 10)+
-  facet_grid(common_name ~ .)+
+  geom_histogram(color= "black", fill= "white", bins = 10)+
+  facet_wrap(~common_name)+
   labs(x = "Size in diameter (cm)",
        y = "Count",
        title = "Distibution of sizes between purple and red urchins (ZAUNER)",
@@ -123,8 +123,8 @@ Created graph of counts of purple urchins recorded at each site over time.
 ```{r}
 
 ggplot(data = total_purple_site_year, aes(x = year_new, y = sample_size))+
-  geom_bar(stat = "identity")+
-  aes(fill = site_full)+
+  geom_line(stat = "identity")+
+  aes(color = site_full)+
   labs(x = "Year",
        y = "Total purple urchin count",
        title = "Total purple urchin count per site (2008-2020) (ZAUNER)",
