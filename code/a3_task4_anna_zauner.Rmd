@@ -7,6 +7,11 @@ output: html_document
 
 # Overview 
 
+This task utilizes data from Naples Reef along the Santa Barbara coast in 2010, to explore the mean size in diameter (cm) of purple urchins in the control group (no giant kelp removal) and the annual group (annual giant kelp removal).
+
+**Data citation**: Reed, D. 2020. SBC LTER: Reef: Long-term experiment: Kelp removal: Urchin size frequency distribution ver 20. Environmental Data Initiative. https://doi.org/10.6073/pasta/5a1e9ef03aa47bd2225c0bb98a02a63b. 
+
+# Set up
 
 ```{r setup, include=TRUE, warning= FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
@@ -30,9 +35,10 @@ urchins_data <- read_csv(here("data", "urchins.csv")) %>%
   clean_names()
   
 ```
+
 # Wrangle the data
 
-Converted date to class "Date" with `lubridate()`, created new columns with dates formated and just years. Then filtered to only include observations at Naples Reef for purple urchins in 2010,
+Converted date to class "Date" with `lubridate()`, created new columns with dates formatted and just years. Then filtered to only include observations at Naples Reef for purple urchins in 2010,
 
 ```{r}
 naples_reef_purple_2010 <- urchins_data %>% 
@@ -48,6 +54,8 @@ naples_reef_purple_2010 <- urchins_data %>%
 
 ## Histogram
 
+Created a faceted histogram to compare the sizes of the control and annual treatments for the purple urchins at Naples in 2010. 
+
 ```{r}
 ggplot(data = naples_reef_purple_2010, aes(x = size))+
   geom_histogram(color = "black", fill = "white", bins = 10)+
@@ -61,11 +69,13 @@ ggplot(data = naples_reef_purple_2010, aes(x = size))+
 
 ## QQ plot
 
+Created a QQ plot to explore how the sample Quantiles compare to theoretical Quantiles for the mean size (cm) of purple urchins in Naples Reef in 2010.
+
 ```{r}
 qqnorm(naples_reef_purple_2010$size)
 ```
 
-### ADD TAKEAWAYS
+**Exploratory visualization takeaways** The distribution of sizes in the annual treatment appears to have a lower central tendency with a distribution skewed to the left. The distribution of sizes for the control treatment appears more normal, with a higher central tendency. 
 
 # Summary staistics
 
