@@ -24,6 +24,7 @@ library(janitor)
 library(here)
 library(kableExtra)
 library(lubridate)
+library(scales)
 
 ```
 
@@ -77,6 +78,7 @@ urchins_summary <- urchins_data %>%
   kable_minimal()
 
 urchins_summary
+
 ```
 
 
@@ -129,12 +131,11 @@ ggplot(data = total_purple_site_year, aes(x = year_new, y = sample_size))+
   labs(x = "Year",
        y = "Total purple urchin count",
        title = "Total purple urchin count per site (2008-2020) (ZAUNER)",
-       fill = "Site name",
+       color = "Site name",
        caption = "Figure 2: Counts of purple urchins recorded at each site along the coast of Santa Barbara from 2008 to 2020.")+
   theme(plot.caption = element_text(hjust = 0.5, size = 8))+
-  
-  
-  
+  scale_x_continuous(limits=c(2008,2020),
+                     labels = scales::number_format(accuracy = 1))
 ```
 
-**Figure 2 Takeaways:** 
+**Figure 2 Takeaways:** This graph is a good representation of the changes un actual urchin population. One must take into account the sample size of the population. In this case n=31805 for purple urchins.Based on this large sample size it is fair to say that the data may be representative of the actual population. One must also take into account the treatments in the study, which includes a control group with giant kelp left intact and an annual group with giant kelp removed once each winter and allowed to re-colonize over the year. These different treatments were not taken into account in the data visualization in figure 2. Other factors that need to be taken into account and could have impacts on urchin population include, water temperature, and water nutrient levels.
