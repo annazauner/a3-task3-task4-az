@@ -7,7 +7,7 @@ output: html_document
 
 ## Overview
 
-This task utilizes data from 5 sites along the Santa Barbara coast to compare the size distirbution of red and purple urchins using data visualization and summary statistics.....
+This task utilizes data from 5 sites along the Santa Barbara coast to explore and compare the size (diameter in cm) distribution of red and purple urchins using data visualization and descriptive statistics table. This data was recorded by Santa Barbara Coastal Ling Term Ecological Research program divers. 
 
 **Data citation**: Reed, D. 2020. SBC LTER: Reef: Long-term experiment: Kelp removal: Urchin size frequency distribution ver 20. Environmental Data Initiative. https://doi.org/10.6073/pasta/5a1e9ef03aa47bd2225c0bb98a02a63b. 
 
@@ -39,11 +39,11 @@ rename(size_cm = size)
 
 # Section 1
 
-Size comparisons, purple and red urchins. 
+Size in diameter (cm) comparisons, purple and red urchins. 
 
 ### Visualize the data
 
-Created a faceted histogram to compare the distribution of sizes between purple and red urchins. 
+Created a faceted histogram with `facet_wrap()` to compare the distribution of sizes between purple and red urchins. 
 
 ```{r}
 ggplot(data = urchins_data, aes(x= size_cm))+
@@ -56,9 +56,9 @@ ggplot(data = urchins_data, aes(x= size_cm))+
   theme(plot.caption = element_text(hjust = 0.5, size = 8))
 ```
 
-## Descriptive statistics
+### Descriptive statistics
 
-Created a table to summarize statistic for purple and red urchins by finding mean, median, standard deviation and sample size. 
+Created a table to summarize statistics for purple and red urchins by finding mean, median, standard deviation and sample size. 
 
 ```{r}
 urchins_summary <- urchins_data %>% 
@@ -80,14 +80,16 @@ urchins_summary
 ```
 
 
+
+
 **Table 1 Takeaways:** The purple urchin population has a lower central tendency (4.5 cm mean, 4.5 cm median) than the red urchin population (6.8 cm mean, 7.0 cm median). The purple urchins are more concentrated around the central tendency, with a smaller spread and lower standard deviation (1.2) while red urchins are more spread with a higher standard deviation (1.9).
 
 
 # Section 2
 
-## Explore the purple urchin data
+### Explore the purple urchin data
 
-Compared purple urchin counts by site and year. Done by `filter()` only purple urchins, changing date class to "Date",and creating new columns. 
+Compared purple urchin counts by site and year. Done by `filter()` only purple urchins, changing date class to "Date",and creating new columns with year and full names of the sites where data was collected. 
 
 ```{r}
 purple_urchins <- urchins_data %>% 
@@ -103,7 +105,7 @@ purple_urchins <- urchins_data %>%
   ))
 
 ```
-## Descriptive statistics
+### Descriptive statistics
 
 Created a table to store of total number of purple urchins observed by site and year. 
 
@@ -111,12 +113,11 @@ Created a table to store of total number of purple urchins observed by site and 
 total_purple_site_year <- purple_urchins %>%
   group_by(site_full, year_new) %>% 
   summarize(sample_size = n())
-  
-total_purple_site_year
+
 
 ```
 
-## Data visualization
+### Data visualization
 
 Created graph of counts of purple urchins recorded at each site over time.
 
@@ -130,7 +131,8 @@ ggplot(data = total_purple_site_year, aes(x = year_new, y = sample_size))+
        title = "Total purple urchin count per site (2008-2020) (ZAUNER)",
        fill = "Site name",
        caption = "Figure 2: Counts of purple urchins recorded at each site along the coast of Santa Barbara from 2008 to 2020.")+
-  theme(plot.caption = element_text(hjust = 0.5, size = 8))
+  theme(plot.caption = element_text(hjust = 0.5, size = 8))+
+  
   
   
 ```
