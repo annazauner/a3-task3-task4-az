@@ -54,7 +54,7 @@ naples_reef_purple_2010 <- urchins_data %>%
 
 ## Histogram
 
-Created a faceted histogram to compare the sizes of the control and annual treatments for the purple urchins at Naples in 2010. 
+Created a faceted histogram to compare the sizes of the control (no giant kelp removal) and annual (annual giant kelp removal) treatments for the purple urchins at Naples in 2010. 
 
 ```{r}
 ggplot(data = naples_reef_purple_2010, aes(x = size))+
@@ -62,7 +62,8 @@ ggplot(data = naples_reef_purple_2010, aes(x = size))+
   facet_wrap(~ treatment)+
   labs(x = "Size in diameter (cm)",
        y = "Count",
-       title = "Distribution of purple urchins at Naples in 2010 by treatment (ZAUNER)")
+       title = "Distribution of purple urchins at Naples in 2010 by treatment (ZAUNER)")+
+  theme(plot.title = element_text(hjust = 0.5))
 
 ```
 
