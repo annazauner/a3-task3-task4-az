@@ -85,7 +85,7 @@ urchins_summary
 
 
 
-**Table 1 Takeaways:** The purple urchin population has a lower central tendency (4.5 cm mean, 4.5 cm median) than the red urchin population (6.8 cm mean, 7.0 cm median). The purple urchins are more concentrated around the central tendency, with a smaller spread and smaller standard deviation (1.2) while red urchins are more spread with a larger standard deviation (1.9).
+**Table 1 Takeaways:** The purple urchin population has a lower central tendency (4.5 cm mean, 4.5 cm median) than the red urchin population (6.8 cm mean, 7.0 cm median). The purple urchin mean is 34% greater than the red urchin mean.The purple urchins are more concentrated around the central tendency, with a smaller spread and smaller standard deviation (1.2) while red urchins are more spread with a larger standard deviation (1.9).
 
 
 # Section 2
@@ -141,4 +141,4 @@ ggplot(data = total_purple_site_year, aes(x = year_new, y = sample_size))+
                      labels = scales::number_format(accuracy = 1))
 ```
 
-**Figure 2:** This visualization may be a good representation of the changes in actual urchin population. This assumption can be made by taking into account the sample size of the population, n=31805 for purple urchins.Based on this large sample size it is fair to say that the data may be representative of the actual population. One must also consider the treatments in the study, which includes a control group (giant kelp left intact) and an annual group (giant kelp removed once each winter and allowed to re-colonize over the year). These different treatments were not taken into account in the data visualization for figure 2. Other factors that should be taken into account and could have impacts on urchin population include, water temperature, and water nutrient levels.
+**Figure 2:** This visualization may be a good representation of the changes in actual urchin population. This assumption can be made by taking into account the sample size of the population, n=31805 for purple urchins.Based on this large sample size it is fair to say that the data may be representative of the actual population. One must also consider the treatments in the study, which includes a control group (giant kelp left intact) and an annual group (giant kelp removed once each winter and allowed to re-colonize over the year). These different treatments were not taken into account in the data visualization for figure 2. Other factors that should be taken into account are how to data was collected, if there was a change in data collection by the divers over the course of the study. Other external environmental factors influencing the urchin population could include change in water temperature, nutrient levels or predation. 
