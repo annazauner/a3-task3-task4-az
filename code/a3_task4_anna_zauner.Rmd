@@ -23,7 +23,7 @@ library(janitor)
 library(here)
 library(kableExtra)
 library(lubridate)
-
+library(effsize)
 ```
 
 # Read in the data
@@ -73,7 +73,9 @@ ggplot(data = naples_reef_purple_2010, aes(x = size))+
 Created a QQ plot to explore how the sample Quantiles compare to theoretical Quantiles for the mean size (cm) of purple urchins in Naples Reef in 2010.
 
 ```{r}
-qqnorm(naples_reef_purple_2010$size)
+ggplot(data = naples_reef_purple_2010, aes(sample = size))+
+  geom_qq()+
+  facet_wrap(~ treatment)
 ```
 
 **Exploratory visualization takeaways** The distribution of sizes in the annual treatment appears to have a lower central tendency with a distribution skewed to the left. The distribution of sizes for the control treatment appears more normal, with a higher central tendency. 
